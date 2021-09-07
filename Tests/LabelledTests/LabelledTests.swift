@@ -19,7 +19,7 @@ final class LabelledTests: XCTestCase {
             case case1
             case case2
             
-            var icon: String {
+            var labelIcon: String {
                 switch self {
                     case .case1: return "icon1"
                     case .case2: return "icon2"
