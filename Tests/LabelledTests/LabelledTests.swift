@@ -11,7 +11,7 @@ import SwiftUI
 
 final class LabelledTests: XCTestCase {
     func testString() {
-        XCTAssertEqual("Test".label, "Test")
+        XCTAssertEqual("Test".labelName, "Test")
     }
     
     func testEnum() {
@@ -27,19 +27,19 @@ final class LabelledTests: XCTestCase {
             }
         }
         
-        XCTAssertEqual(Cases.case1.label, "case1")
-        XCTAssertEqual(Cases.case2.label, "case2")
+        XCTAssertEqual(Cases.case1.labelName, "case1")
+        XCTAssertEqual(Cases.case2.labelName, "case2")
 
-        XCTAssertEqual(Cases.case1.icon, "icon1")
-        XCTAssertEqual(Cases.case2.icon, "icon2")
+        XCTAssertEqual(Cases.case1.labelIcon, "icon1")
+        XCTAssertEqual(Cases.case2.labelIcon, "icon2")
     }
     
     func testLabel() {
         struct Thing: Labelled {
-            let label = "label"
-            let icon = "icon"
+            let labelName = "label"
+            let labelIcon = "icon"
         }
         
-        let _ = Label(Thing())
+        let _ = Thing().label
     }
 }

@@ -6,29 +6,30 @@
 import SwiftUI
 
 public protocol Labelled {
-    var icon: String { get }
-    var label: String { get }
+    associatedtype LabelType: View
+    associatedtype ImageType: View
+    
+    var label: Label<LabelType, ImageType> { get }
+    var labelName: String { get }
+    var labelIcon: String { get }
 }
 
-public extension Labelled {
-    var icon: String { "" }
+public extension Labelled where LabelType == Text, ImageType == Image {
+    var labelIcon: String { return "" }
+
+    var label: Label<LabelType, ImageType> {
+        Label(LocalizedStringKey(labelName), systemImage: labelIcon)
+    }
 }
 
 public extension Labelled where Self: CustomStringConvertible {
-    var label: String { description }
+    var labelName: String { description }
 }
 
 public extension Labelled where Self: RawRepresentable, Self.RawValue == String {
-    var label: String { rawValue }
-}
-
-@available(macOS 11.0, *) public extension Label where Title == Text, Icon == Image {
-    init(_ labelled: Labelled) {
-        self.init(LocalizedStringKey(labelled.label), systemImage: labelled.icon)
-    }
-    
+    var labelName: String { rawValue }
 }
 
 extension String: Labelled {
-    public var label: String { self }
+    public var labelName: String { self }
 }
