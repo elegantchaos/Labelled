@@ -4,9 +4,8 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 import SwiftUI
-import SwiftUIExtensions
 
-public protocol Labelled: Hashable, Identifiable {
+public protocol Labelled {
     var icon: String { get }
     var label: String { get }
 }
@@ -23,8 +22,13 @@ public extension Labelled where Self: RawRepresentable, Self.RawValue == String 
     var label: String { rawValue }
 }
 
-public extension Label {
+@available(macOS 11.0, *) public extension Label where Title == Text, Icon == Image {
     init(_ labelled: Labelled) {
-        self.init(labelled.label, systemImage: labelled.icon)
+        self.init(LocalizedStringKey(labelled.label), systemImage: labelled.icon)
     }
+    
+}
+
+extension String: Labelled {
+    public var label: String { self }
 }
