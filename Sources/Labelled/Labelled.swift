@@ -20,6 +20,16 @@ public extension Labelled where LabelType == Text, ImageType == Image {
     var label: Label<LabelType, ImageType> {
         Label(LocalizedStringKey(labelName), systemImage: labelIcon)
     }
+    
+    var textOrImage: Group<_ConditionalContent<Text, Image>> {
+        Group {
+            if labelIcon.isEmpty {
+                Text(LocalizedStringKey(labelName))
+            } else {
+                Image(systemName: labelIcon)
+            }
+        }
+    }
 }
 
 public extension Labelled where Self: CustomStringConvertible {
