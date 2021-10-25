@@ -16,13 +16,19 @@ let package = Package(
         .library(
             name: "Labelled",
             targets: ["Labelled"]),
+        .library(
+            name: "LabelledKit",
+            targets: ["LabelledKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/elegantchaos/XCTestExtensions.git", from: "1.3.3")
+        .package(url: "https://github.com/elegantchaos/XCTestExtensions.git", from: "1.4.2")
     ],
     targets: [
         .target(
             name: "Labelled",
+            dependencies: []),
+        .target(
+            name: "LabelledKit",
             dependencies: []),
         .testTarget(
             name: "LabelledTests",
