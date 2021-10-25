@@ -40,6 +40,6 @@ final class LabelledTests: XCTestCase {
             let labelIcon = "icon"
         }
         
-        let _ = Thing().label
+        let _ = Thing().labelName
     }
 }

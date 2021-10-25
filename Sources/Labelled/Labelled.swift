@@ -5,31 +5,19 @@
 
 import SwiftUI
 
-public protocol Labelled {
-    associatedtype LabelType: View
-    associatedtype ImageType: View
-    
-    var label: Label<LabelType, ImageType> { get }
-    var labelName: String { get }
-    var labelIcon: String { get }
+public enum LabelIcon {
+    case none
+    case system(String)
+    case custom(String)
 }
 
-public extension Labelled where LabelType == Text, ImageType == Image {
-    var labelIcon: String { return "" }
+public protocol Labelled {
+    var labelName: String { get }
+    var labelIcon: LabelIcon { get }
+}
 
-    var label: Label<LabelType, ImageType> {
-        Label(LocalizedStringKey(labelName), systemImage: labelIcon)
-    }
-    
-    var textOrImage: Group<_ConditionalContent<Text, Image>> {
-        Group {
-            if labelIcon.isEmpty {
-                Text(LocalizedStringKey(labelName))
-            } else {
-                Image(systemName: labelIcon)
-            }
-        }
-    }
+public extension Labelled {
+    var labelIcon: LabelIcon { return .none }
 }
 
 public extension Labelled where Self: CustomStringConvertible {
