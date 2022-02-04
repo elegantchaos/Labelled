@@ -29,7 +29,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "LabelledKit",
-            dependencies: []),
+            dependencies: ["Labelled"]),
         .testTarget(
             name: "LabelledTests",
             dependencies: ["Labelled", "XCTestExtensions"]),
