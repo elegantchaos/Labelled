@@ -9,6 +9,13 @@ public enum LabelIcon {
     case none
     case system(String)
     case custom(String)
+    
+    public var hasIcon: Bool {
+        switch self {
+            case .none: return false
+            default: return true // TODO - could check if named SF or custom icon actually exists
+        }
+    }
 }
 
 public protocol Labelled {
