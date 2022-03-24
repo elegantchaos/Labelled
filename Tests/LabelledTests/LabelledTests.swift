@@ -14,15 +14,25 @@ final class LabelledTests: XCTestCase {
         XCTAssertEqual("Test".labelName, "Test")
     }
     
+    func testDefaultIcon() {
+        struct Thing: Labelled {
+            let labelName = "name"
+        }
+        
+        XCTAssertEqual(Thing().labelIcon, .none)
+        XCTAssertFalse(Thing().hasIcon)
+        XCTAssertFalse(Thing().labelIcon.hasIcon)
+    }
+    
     func testEnum() {
         enum Cases: String, Labelled {
             case case1
             case case2
             
-            var labelIcon: String {
+            var labelIcon: LabelIcon {
                 switch self {
-                    case .case1: return "icon1"
-                    case .case2: return "icon2"
+                    case .case1: return .custom("icon1")
+                    case .case2: return .custom("icon2")
                 }
             }
         }
@@ -30,8 +40,10 @@ final class LabelledTests: XCTestCase {
         XCTAssertEqual(Cases.case1.labelName, "case1")
         XCTAssertEqual(Cases.case2.labelName, "case2")
 
-        XCTAssertEqual(Cases.case1.labelIcon, "icon1")
-        XCTAssertEqual(Cases.case2.labelIcon, "icon2")
+        XCTAssertEqual(Cases.case1.labelIcon, .custom("icon1"))
+        XCTAssertTrue(Cases.case1.hasIcon)
+        XCTAssertEqual(Cases.case2.labelIcon, .custom("icon2"))
+        XCTAssertTrue(Cases.case2.hasIcon)
     }
     
     func testLabel() {

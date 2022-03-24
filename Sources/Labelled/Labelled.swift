@@ -5,36 +5,26 @@
 
 import SwiftUI
 
-public enum LabelIcon {
-    case none
-    case system(String)
-    case custom(String)
-    
-    public var hasIcon: Bool {
-        switch self {
-            case .none: return false
-            default: return true // TODO - could check if named SF or custom icon actually exists
-        }
-    }
-}
-
+/// Protocol which indicates that a label can automatically be generated
+/// for this object.
+/// In this context a label consists of a textual description, and optionally
+/// an icon/image.
+///
+/// Support for turning this into a SwiftUI Label can be found in the companion
+/// LabelledKit package.
 public protocol Labelled {
+    
+    /// Text to use for the label.
     var labelName: String { get }
+    
+    /// Icon to use for the label.
     var labelIcon: LabelIcon { get }
 }
 
 public extension Labelled {
+    /// Default to having no icon.
     var labelIcon: LabelIcon { return .none }
-}
-
-public extension Labelled where Self: CustomStringConvertible {
-    var labelName: String { description }
-}
-
-public extension Labelled where Self: RawRepresentable, Self.RawValue == String {
-    var labelName: String { rawValue }
-}
-
-extension String: Labelled {
-    public var labelName: String { self }
+    
+    /// Does this item have an icon?
+    var hasIcon: Bool { labelIcon.hasIcon }
 }
